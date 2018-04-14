@@ -47,11 +47,15 @@
 
 
 				<li>
-					<a href="#"> <span>About</span></a>
+					<a href="#intro"> <span>Introduction</span></a>
+                    <ul>
+                        <li><a href="#pn"><span>PoseNet</span></a></li>
+                        <li><a href="#vsfm"><span>Visual SfM</span></a></li>
+                        <li><a href="#gts"><span>GTSAM</span></a></li>
+                    </ul>
 				</li>
-				<li>
-					<a href="https://github.com/PoseNet-Mobile-Robot/Mobile-Robotics"> <span>Code</span></a>
-				</li>
+
+				<li><a href="https://github.com/PoseNet-Mobile-Robot/Mobile-Robotics"> <span>Code</span></a></li>
 				<li>
 					<a href="#"> <span>Team</span></a>
 				</li>
@@ -99,7 +103,7 @@
             <div class="posts">
 
         <div class="post">
-        <h1 class="post-title"><a href="#">Introduction</a></h1>
+        <h1 class="post-title"><a href="#" id="intro">Introduction</a></h1>
         <span class="post-date">
             <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
@@ -121,7 +125,7 @@
         </div>
 
         <div class="post">
-        <h1 class="post-title"><a href="https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Kendall_PoseNet_A_Convolutional_ICCV_2015_paper.pdf">PoseNet</a></h1>
+        <h1 class="post-title"><a href="https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Kendall_PoseNet_A_Convolutional_ICCV_2015_paper.pdf"  id="pn">PoseNet</a></h1>
         <span class="post-date">
             <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
@@ -143,10 +147,11 @@
         </div>
 
         <div class="post">
-        <h1 class="post-title"><a href="http://ccwu.me/vsfm/vsfm.pdf">Visual Structure from Motion (VSfM)</a></h1>
+        <h1 class="post-title"><a href="http://ccwu.me/vsfm/vsfm.pdf" id="vsfm">Visual Structure from Motion (VSfM)</a></h1>
         <span class="post-date">
             <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
+        <p>
         Visual SfM is a technique used in Photogrammetry used to generate the pose of a camera from an image of the scene. The basic approach of Visual SfM is as follows:
         <ul>
             <li>Take images of a scene from multiple angles/ positions</li>
@@ -155,10 +160,11 @@
             <li>Generate the <strong><em>Essential Matrix</em></strong> using which further <strong>6-DOF poses</strong> can be regressed.</li>
         </ul>
         For our use case, we directly use one of the <a href="http://ccwu.me/vsfm/vsfm.pdf">available tools</a> to generate the labels. We use the Fetch Robot DataSet for generation of the ground-truth labels to train PoseNet. The odometry is obtained from the robot itself.
+        </p>
         </div>
 
         <div class="post">
-        <h1 class="post-title"><a href="https://borg.cc.gatech.edu/">GTSAM 4.0</a></h1>
+        <h1 class="post-title"><a href="https://borg.cc.gatech.edu/"  id="gts">GTSAM 4.0</a></h1>
         <span class="post-date">
             <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
