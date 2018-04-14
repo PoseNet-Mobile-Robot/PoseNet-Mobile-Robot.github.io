@@ -38,7 +38,7 @@
 		<div class="sidebar-about text-center">
 			<a href="https://posenet-mobile-robot.github.io/"><h1 class="brand">PoseNet++</h1></a>
 			<p class="lead">
-				 deep learning, SLAM, GTSAM
+				 Deep Learning, SLAM, GTSAM, VSfM
 			</p>
 		</div>
 
@@ -87,7 +87,7 @@
 
         </p>
 		<p class="copyright">&copy; 2018 UMich.
-        <a href="https://creativecommons.org/licenses/by/4.0">Some Rights Reserved</a>.<br/>Built with <a href="https://gohugo.io/">Hugo</a> &amp; <a href="https://github.com/htr3n/hyde-hyde">hyde-hyde</a>.
+        <a href="https://creativecommons.org/licenses/by/4.0">All Rights Reserved</a>.<br/>Built by <a href="https://www.linkedin.com/in/sahibdhanjal/">Sahib Dhanjal</a> | Template - <a href="https://gohugo.io/">Hugo</a>.
         </p>
 	</div>
 	<div>
@@ -99,35 +99,69 @@
             <div class="posts">
 
         <div class="post">
-        <h1 class="post-title"><a href="#">Getting Started</a></h1>
+        <h1 class="post-title"><a href="#">Introduction</a></h1>
         <span class="post-date">
-            <i class="fas fa-calendar-alt"></i> Mar 13, 2018
+            <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
-        Lorem ipsum dolor sit amet, wisi sociis dui. Vel neque quis nulla commodo ipsum quis, et sed commodi in eu. Id vel et lorem dignissim, nullam metus quis, a luctus wisi elementum dui eu, vehicula tortor condimentum pretium eros nibh sed, at elit etiam. Ligula fusce massa pede proin donec rhoncus, dictum nisl suspendisse id, aenean justo nulla, in amet sed. Consectetuer tempus duis, sit sed enim dignissim at sit. Ut in, eget sociis lectus. Non explicabo sapiente. Et nulla, facilisis aliquam etiam venenatis massa, pharetra vehicula maecenas venenatis velit, sed mi suspendisse nec. Suscipit magna viverra ut. Eget vel volutpat fermentum vitae massa.
+        <p>This project outlines our implementation of PoseNet++, a deep learning framework for passive SLAM. PoseNet++ is a full robot re-localization pipeline which uses PoseNet as the sensor model, GPS/Odometry Data as the action model and GTSAM as our backend. The framework is able to re-localize the robot within two meters of it's ground truth. Our aim in this project is to demonstrate that using Convolutional Neural Networks (CNNs), in combination with a mono-camera system, provides a viable solution for the kidnapped robot problem and an accurate solution to the SLAM problem in general.</p>
+        <p>To run the code from the repository, the following dependencies are required:
+            <ul>
+                <li>Python 2.7 (with TensorFlow/ Open CV 3/ MatPlotlib/ NumPy)</li>
+                <li>GTSAM 4.0</li>
+                <li>Visual SFM Tool</li>
+                <li>IP WebCam</li>
+            </ul>
+            Please follow respective documentations for correct installation of the above. The code is tested on the following datasets:
+            <ul>
+                <li>North Campus Long Term <strong>(NCLT Dataset)</strong></li>
+                <li>University of Cambridge Dataset <strong>(Shop Facade/ King's College)</strong></li>
+                <li>Fetch Robot Dataset <strong>(provided by <a href="http://robots.engin.umich.edu/">PeRL Lab</a>)</strong></li>
+            </ul>
+        </p>
         </div>
 
         <div class="post">
         <h1 class="post-title"><a href="https://www.cv-foundation.org/openaccess/content_iccv_2015/papers/Kendall_PoseNet_A_Convolutional_ICCV_2015_paper.pdf">PoseNet</a></h1>
         <span class="post-date">
-            <i class="fas fa-calendar-alt"></i> Mar 13, 2018
+            <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
-        Lorem ipsum dolor sit amet, wisi sociis dui. Vel neque quis nulla commodo ipsum quis, et sed commodi in eu. Id vel et lorem dignissim, nullam metus quis, a luctus wisi elementum dui eu, vehicula tortor condimentum pretium eros nibh sed, at elit etiam. Ligula fusce massa pede proin donec rhoncus, dictum nisl suspendisse id, aenean justo nulla, in amet sed. Consectetuer tempus duis, sit sed enim dignissim at sit. Ut in, eget sociis lectus. Non explicabo sapiente. Et nulla, facilisis aliquam etiam venenatis massa, pharetra vehicula maecenas venenatis velit, sed mi suspendisse nec. Suscipit magna viverra ut. Eget vel volutpat fermentum vitae massa.
+        <p>PoseNet is a Deep Learning Framework which can regress the 6 DOF pose of a monocular camera from a single RGB Image in an end-to-end manner with no additional engineering or graph optimization. It can operate both indoor and outdoor in real time, and takes about 5ms to compute a frame. The original implementation of PoseNet uses GoogLeNet from the ImageNet Challenge and obtains approximately 2m and 3&#176 accuracy for large scale outdoor scenes and 0.5m and 5&#176 accuracy indoors. It leverages transfer learning from large scale classification data and is robust in several conditions such as difficult lighting, motion blur, different camera intrinsics and even the same scene captured in different seasons(eg. Winter, Summer, Monsoon). Due to this robustness in different conditions, it has an advantage over SIFT based feature registration.</p>
+        <p>Our implementation of PoseNet is based on the VGG-16 Network, mainly due to the ease of implementation. The accuracy obtained using the VGG-16 is almost the same as GoogLeNet, with a Top-5 error rate of 7.3% compared to 6.67% (on the GoogLeNet). The only major drawback is that training and testing on VGG-16 is slower due to the number of parameters involved. The only change made to the network is that we replace hte last SoftMax layer to a Fully Connected Regression Layer. The following procedure is followed for training:
+            <ul>
+                <li>Scale Down each of the <strong>1920 x 1080</strong> images till the smallest dimension is <strong>256px</strong></li>
+                <li>Make <strong>128</strong> random crops of size <strong>224 x 224</strong> using the scaled down image</li>
+                <li>Associate corresponding <strong>ground-truth labels</strong> (pose/ quaternion) to each of the images</li>
+                <li>The labels are in the following format - <strong>pose</strong>: (x, y, z) , <strong>orientation</strong>: (w, x, y, z)</li>
+            </ul>
+        once all the images are generated, with it's corresponding ground-truth labels, they are fed to PoseNet for training.
+        </p>
+        <p>For testing purposes, no pre-processing needs to be done on the iamges. The original frequency of the images from the NCLT dataset is <strong>5Hz</strong>. To obtain real-time performance, we down-sample the images to a frequency of <strong>2Hz</strong>. Once downsampled, the corresponding <strong>odometry labels</strong> are obtained from the dataset. The ground-truth labels are generated using PoseNet and are added to GTSAM as a <em>"measurement factor"</em>. The odometry labels from the dataset (or VSFM when used) are added as an <em>"odometry factor"</em> to GTSAM.
+        </p>
         </div>
 
         <div class="post">
-        <h1 class="post-title"><a href="http://ccwu.me/vsfm/vsfm.pdf">Structural Data Generation</a></h1>
+        <h1 class="post-title"><a href="http://ccwu.me/vsfm/vsfm.pdf">Visual Structure from Motion (VSfM)</a></h1>
         <span class="post-date">
-            <i class="fas fa-calendar-alt"></i> Mar 13, 2018
+            <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
-        Lorem ipsum dolor sit amet, wisi sociis dui. Vel neque quis nulla commodo ipsum quis, et sed commodi in eu. Id vel et lorem dignissim, nullam metus quis, a luctus wisi elementum dui eu, vehicula tortor condimentum pretium eros nibh sed, at elit etiam. Ligula fusce massa pede proin donec rhoncus, dictum nisl suspendisse id, aenean justo nulla, in amet sed. Consectetuer tempus duis, sit sed enim dignissim at sit. Ut in, eget sociis lectus. Non explicabo sapiente. Et nulla, facilisis aliquam etiam venenatis massa, pharetra vehicula maecenas venenatis velit, sed mi suspendisse nec. Suscipit magna viverra ut. Eget vel volutpat fermentum vitae massa.
+        Visual SfM is a technique used in Photogrammetry used to generate the pose of a camera from an image of the scene. The basic approach of Visual SfM is as follows:
+        <ul>
+            <li>Take images of a scene from multiple angles/ positions</li>
+            <li>Generate all the SIFT feature points for each of the taken images</li>
+            <li>Match all the images using the generated feature points</li>
+            <li>Generate the <strong><em>Essential Matrix</em></strong> using which further <strong>6-DOF poses</strong> can be regressed.</li>
+        </ul>
+        For our use case, we directly use one of the available tools to generate the labels. We use the Fetch Robot DataSet for generation of the ground-truth labels to train PoseNet. The odometry is obtained from the robot itself.
         </div>
 
         <div class="post">
-        <h1 class="post-title"><a href="https://borg.cc.gatech.edu/">GTSAM</a></h1>
+        <h1 class="post-title"><a href="https://borg.cc.gatech.edu/">GTSAM 4.0</a></h1>
         <span class="post-date">
-            <i class="fas fa-calendar-alt"></i> Mar 13, 2018
+            <i class="fas fa-calendar-alt"></i> Apr 14, 2018
         </span>
-        Lorem ipsum dolor sit amet, wisi sociis dui. Vel neque quis nulla commodo ipsum quis, et sed commodi in eu. Id vel et lorem dignissim, nullam metus quis, a luctus wisi elementum dui eu, vehicula tortor condimentum pretium eros nibh sed, at elit etiam. Ligula fusce massa pede proin donec rhoncus, dictum nisl suspendisse id, aenean justo nulla, in amet sed. Consectetuer tempus duis, sit sed enim dignissim at sit. Ut in, eget sociis lectus. Non explicabo sapiente. Et nulla, facilisis aliquam etiam venenatis massa, pharetra vehicula maecenas venenatis velit, sed mi suspendisse nec. Suscipit magna viverra ut. Eget vel volutpat fermentum vitae massa.
+        <p>The Georgia Tech Smoothing and Mapping (GTSAM) is an opensource SAM toolbox written in C++, with wrappers for Pyhton/ MATLAB. The classes implement smoothing and mapping (SAM) in robotics and vision, using factor graphs and Bayes networks as the underlying computing paradigm rather than sparse matrices. Factor graphs are graphical models that are well suited to modeling complex estimation problems, such as Simultaneous Localization and Mapping (SLAM) or Structure from Motion (SfM).  They are bipartite graphs consisting of factors connected to variables. The variables represent the unknown random variables in the estimation problem, whereas the factors represent probabilistic information on those variables, derived from measurements or prior knowledge. Bayes networks are another type of graphical models which are directed acyclic graphs.  </p>
+        <p>GTSAM provides state of the art solutions to the SLAM and SfM problems, but can also be used to model and solve both simpler and more complex estimation problems. It exploits sparsity to be computationally efficient. Typically measurements only provide information on the relationship between a handful of variables, and hence the resulting factor graph will be sparsely connected. This is exploited by the algorithms implemented in GTSAM to reduce computational complexity. Even when graphs are too dense to be handled efficiently by direct methods, GTSAM provides iterative methods that are quite efficient regardless. In our project we use incremental smoothing and mapping using the Bayes tree (iSAM2)[7] as our back-end optimization tool. Based on Bayes Tree structure, the first order least square matrix can be updated efficiently according to the factor dependencies.</p>
+        <p>In our project, as discussed previously, we use the odometry factor from the dataset<em>(or robot)</em> and the PoseNet factor in GTSAM for mapping the result obtained in real-time.</p>
         </div>
 
         </div>
