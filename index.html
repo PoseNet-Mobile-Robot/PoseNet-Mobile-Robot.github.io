@@ -46,19 +46,12 @@
 	<ul class="sidebar-nav">
 
 
-				<li>
-					<a href="#intro"> <span>Introduction</span></a>
-                    <ul>
-                        <li><a href="#pn"><span>PoseNet</span></a></li>
-                        <li><a href="#vsfm"><span>Visual SfM</span></a></li>
-                        <li><a href="#gts"><span>GTSAM</span></a></li>
-                    </ul>
-				</li>
-
-				<li><a href="https://github.com/PoseNet-Mobile-Robot/Mobile-Robotics"> <span>Code</span></a></li>
-				<li>
-					<a href="#"> <span>Team</span></a>
-				</li>
+				<li><a href="#intro"> <span>Introduction</span></a></li>
+                <li><a href="#pn"><span>PoseNet</span></a></li>
+                <li><a href="#vsfm"><span>Visual SfM</span></a></li>
+                <li><a href="#gts"><span>GTSAM</span></a></li>
+				<li><a href="#team"> <span>Team</span></a></li>
+                <li><a href="https://github.com/PoseNet-Mobile-Robot/Mobile-Robotics"> <span>Code</span></a></li>
 		</li>
 	</ul>
 </div>
@@ -66,32 +59,22 @@
         <p>
 		<section class="row text-center">
 
-	<a href="#"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a>
-
-
-
+<!-- 	<a href="#"><i class="fab fa-twitter fa-lg" aria-hidden="true" ></i></a>
 	&nbsp;<a href="#"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
-
-
 	&nbsp;<a href="#"><i class="fab fa-bitbucket fa-lg" aria-hidden="true"></i></a>
-
-
-
-	&nbsp;<a href="#"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
-
-
-	&nbsp;<a href="#"><i class="fab fa-stack-overflow fa-lg" aria-hidden="true"></i></a>
+    &nbsp;<a href="#"><i class="fab fa-linkedin fa-lg" aria-hidden="true" title="Sahib Dhanjal"></i></a>
+    &nbsp;<a href="#"><i class="fab fa-stack-overflow fa-lg" aria-hidden="true"></i></a> -->
 
 
 
 
-	&nbsp;<a href="#"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a>
+	<!-- &nbsp;<a href="#"><i class="fas fa-at fa-lg" aria-hidden="true"></i></a> -->
 
 </section>
 
         </p>
 		<p class="copyright">&copy; 2018 UMich.
-        <a href="https://creativecommons.org/licenses/by/4.0">All Rights Reserved</a>.<br/>Built by <a href="https://www.linkedin.com/in/sahibdhanjal/">Sahib Dhanjal</a> | Template - <a href="https://gohugo.io/">Hugo</a>.
+        <a href="https://creativecommons.org/licenses/by/4.0">All Rights Reserved</a>.<br/>Built by <a href="https://sahibdhanjal.github.io">Sahib Dhanjal</a> | Template - <a href="https://gohugo.io/">Hugo</a>.
         </p>
 	</div>
 	<div>
@@ -171,6 +154,40 @@
         <p>The <strong>Georgia Tech Smoothing and Mapping (GTSAM)</strong> is an opensource <srong>SAM toolbox</srong> written in C++, with wrappers for Pyhton/ MATLAB. The classes implement smoothing and mapping (SAM) in robotics and vision, using factor graphs and Bayes networks as the underlying computing paradigm rather than sparse matrices. Factor graphs are graphical models that are well suited to modeling complex estimation problems, such as <strong>Simultaneous Localization and Mapping (SLAM)</strong> or <strong>Structure from Motion (SfM)</strong>.  They are bipartite graphs consisting of factors connected to variables. The variables represent the unknown random variables in the estimation problem, whereas the factors represent probabilistic information on those variables, derived from measurements or prior knowledge. Bayes networks are another type of graphical models which are directed acyclic graphs.  </p>
         <p>GTSAM provides state of the art solutions to the SLAM and SfM problems, but can also be used to model and solve both simpler and more complex estimation problems. It exploits sparsity to be computationally efficient. Typically measurements only provide information on the relationship between a handful of variables, and hence the resulting factor graph will be sparsely connected. This is exploited by the algorithms implemented in GTSAM to reduce computational complexity. Even when graphs are too dense to be handled efficiently by direct methods, GTSAM provides iterative methods that are quite efficient regardless. In our project we use incremental smoothing and mapping using the Bayes tree (iSAM2) as our back-end optimization tool. Based on Bayes Tree structure, the first order least square matrix can be updated efficiently according to the factor dependencies.</p>
         <p>In our project, as discussed previously, we use the odometry factor from the dataset<em>(or robot)</em> and the PoseNet factor in GTSAM for mapping the result obtained in real-time.</p>
+        </div>
+
+        <div class="post">
+            <h1 class="post-title" >Team</h1>
+            <span class="post-date" id="team">
+                <i class="fas fa-calendar-alt"></i> Apr 14, 2018
+            </span>
+            The team working on this project comprises of:
+            <ul>
+                <li>
+                    Christopher Schmotzer
+                </li>
+
+                <li>
+                    Dante Luo
+                    &nbsp;<a href="https://github.com/DanteLuo"><i class="fab fa-github fa-lg" aria-hidden="true" title="GitHub"></i></a>
+                </li>
+
+                <li>
+                    Ray Zhang
+                    &nbsp;<a href="https://github.com/zeroAska"><i class="fab fa-github fa-lg" aria-hidden="true" title="GitHub"></i></a>
+                </li>
+
+                <li>
+                    Sahib Dhanjal
+                    <a href="https://www.linkedin.com/in/sahibdhanjal/"><i class="fab fa-linkedin fa-lg" aria-hidden="true" title="LinkedIn"></i></a>
+                    &nbsp;<a href="https://github.com/sahibdhanjal"><i class="fab fa-github fa-lg" aria-hidden="true" title="GitHub"></i></a>
+                </li>
+
+                <li>
+                    Snigdhaa Hasija
+                    <a href="https://www.linkedin.com/in/snigdhaahasija/"><i class="fab fa-linkedin fa-lg" aria-hidden="true" title="LinkedIn"></i></a>
+                </li>
+            </ul>
         </div>
 
         </div>
